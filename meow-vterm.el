@@ -159,7 +159,7 @@ As Vterm by default sends C-/ or C-_ as C-_ to the shell, you may want to
     (if meow-vterm-mode
         (progn
           (meow--switch-state
-           (if (eq state 'insert) 'vterm-insert 'vterm-normal))
+           (if (memq state '(vterm-insert insert)) 'vterm-insert 'vterm-normal))
           (add-hook 'meow-insert-mode-hook #'meow-vterm--insert-redirect 0 t)
           (add-hook 'meow-normal-mode-hook #'meow-vterm--normal-redirect 0 t)
           (setq-local meow--delete-region-function
