@@ -221,17 +221,21 @@ As Vterm by default sends C-/ or C-_ as C-_ to the shell, you may want to
   ;; copied from definition of Insert state
   :keymap meow-vterm-insert-state-keymap
   :face meow-insert-cursor
-  (if meow-vterm-insert-mode
-      (run-hooks 'meow-insert-enter-hook)
-    (when (and meow--insert-pos
-               meow-select-on-change
-               (not (= (point) meow--insert-pos)))
-      (thread-first
-        (meow--make-selection '(select . transient) meow--insert-pos (point))
-        (meow--select)))
-    (run-hooks 'meow-insert-exit-hook)
-    (setq-local meow--insert-pos nil))
-  (run-hooks 'meow-insert-mode-hook))
+  ;; TODO we should not need the `progn' here; `meow-define-state' should run
+  ;; ALL forms after the keyword args, not just the first one. PR a fix
+  ;; upstream.
+  (progn
+    (if meow-vterm-insert-mode
+        (run-hooks 'meow-insert-enter-hook)
+      (when (and meow--insert-pos
+                 meow-select-on-change
+                 (not (= (point) meow--insert-pos)))
+        (thread-first
+          (meow--make-selection '(select . transient) meow--insert-pos (point))
+          (meow--select)))
+      (run-hooks 'meow-insert-exit-hook)
+      (setq-local meow--insert-pos nil))
+    (run-hooks 'meow-insert-mode-hook)))
 (setq meow-cursor-type-vterm-insert meow-cursor-type-insert)
 
 (provide 'meow-vterm)
