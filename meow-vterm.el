@@ -230,7 +230,8 @@ As Vterm by default sends C-/ or C-_ as C-_ to the shell, you may want to
         (meow--make-selection '(select . transient) meow--insert-pos (point))
         (meow--select)))
     (run-hooks 'meow-insert-exit-hook)
-    (setq-local meow--insert-pos nil)))
+    (setq-local meow--insert-pos nil))
+  (run-hooks 'meow-insert-mode-hook))
 (setq meow-cursor-type-vterm-insert meow-cursor-type-insert)
 
 (provide 'meow-vterm)
