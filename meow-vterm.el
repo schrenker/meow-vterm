@@ -26,8 +26,6 @@
 ;; Setup:
 ;;
 ;;    (add-hook 'vterm-mode-hook #'meow-vterm-mode)
-;;    (meow-define-keys 'vterm-insert
-;;      '("<escape>" . meow-vterm-insert-exit))
 ;;    (meow-define-keys 'vterm-normal
 ;;      '("p" . meow-vterm-yank)
 ;;      '("P" . meow-vterm-yank-pop)
@@ -106,12 +104,6 @@ Preserve mark and secondary selection."
 (defun meow-vterm--insert-function (&rest args)
   "Wrapped `vterm-insert' that works in Vterm copy mode."
   (meow-vterm--without-copy-mode (apply #'vterm-insert args)))
-
-(defun meow-vterm-insert-exit ()
-  "Switch to Vterm Normal state."
-  (interactive)
-  (when (meow-vterm-insert-mode-p)
-    (meow--switch-state 'vterm-normal)))
 
 (defun meow-vterm-yank ()
   "Wrapped `meow-yank' that works in Vterm copy mode."
