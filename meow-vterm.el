@@ -4,7 +4,7 @@
 ;; Maintainer: 45mg <45mg@no.mail>
 ;; Created: 2024
 ;; Version: 0.1
-;; Package-Requires: ((emacs "27.1"))
+;; Package-Requires: ((emacs "27.1") meow vterm)
 ;; Homepage: TODO
 
 ;; This file is not part of GNU Emacs.
