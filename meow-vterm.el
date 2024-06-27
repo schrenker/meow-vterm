@@ -99,7 +99,10 @@ Preserve mark and secondary selection."
 
 (defun meow-vterm--delete-region-function (start end)
   "Wrapped `vterm-delete-region' that works in Vterm copy mode."
-  (meow-vterm--without-copy-mode (vterm-delete-region start end)))
+  (meow-vterm--without-copy-mode
+    ;; BUG `vterm-delete-region' does nothing and returns nil if start>end;
+    ;; it should be able to handle this condition, like `delete-region'
+    (vterm-delete-region (min start end) (max start end))))
 
 (defun meow-vterm--insert-function (&rest args)
   "Wrapped `vterm-insert' that works in Vterm copy mode."
