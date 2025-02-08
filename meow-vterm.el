@@ -55,6 +55,23 @@
 (require 'meow)
 (require 'vterm)
 
+(defface meow-vterm-normal-indicator
+  '((((class color) (background dark))
+     ())
+    (((class color) (background light))
+     ()))
+  "Cursor state indicator.")
+
+(defface meow-vterm-insert-indicator
+  '((((class color) (background dark))
+     ())
+    (((class color) (background light))
+     ()))
+  "Cursor state indicator.")
+
+(add-to-list 'meow-indicator-face-alist '(vterm-insert . meow-vterm-insert-indicator))
+(add-to-list 'meow-indicator-face-alist '(vterm-normal . meow-vterm-normal-indicator))
+
 (defvar meow-vterm--kbd-undo "C-x u"
   "KBD macro for `undo' in Vterm.
 By default, Vterm maps \\='C-/\\=' and \\='C-_\\=' to `vterm-undo', which just
